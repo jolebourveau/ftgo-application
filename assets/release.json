@@ -1,0 +1,7 @@
+{
+ "backend_image": "241765568243.dkr.ecr.us-east-1.amazonaws.com/drift-gate-semantic@sha256:ee8ae880b567a7a27ba515502dde9eec4a2466548d80ed2868279b4ff78d557f",
+ "schema": "review-ui-release-v1",
+ "source_branch": "unrecorded",
+ "ui_commit": "29f9affd582ccbdb7f36225db0a3ee72b189ea6d",
+ "ui_dirty": "false"
+}
