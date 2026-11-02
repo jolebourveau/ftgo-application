@@ -21,7 +21,7 @@ let returnCommentId=/^[0-9]+$/.test(qs.get('comment')||'')?qs.get('comment'):nul
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const short=value=>String(value||'').split('/').pop();
 const label=value=>String(value||'').replace(/^FTGO-/,'').replaceAll('_',' ').replaceAll('-',' ').toLowerCase().replace(/^./,c=>c.toUpperCase());
-const demo=repo==='scottswindell-hub/ftgo-application';
+const demo=['scottswindell-hub/ftgo-application','Holonic-Technologies/governance-demo'].includes(repo);
 const rawChecks=()=>state.status?.checks||state.status?.stages||[];
 const checks=()=>rawChecks().filter(c=>!demo||(!walkthroughPipeline.demoEvidenceGap(c)&&c.id!=='governance_decision'));
 const items=()=>state.model?[...state.model.changes,...state.model.constraints].filter(item=>!demo||item.status!=='unknown'):[];
