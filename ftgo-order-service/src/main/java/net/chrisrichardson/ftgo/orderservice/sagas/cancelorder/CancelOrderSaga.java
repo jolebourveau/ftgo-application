@@ -86,6 +86,7 @@ public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
   }
 
   private CommandWithDestination beginCancel(CancelOrderSagaData data) {
+    data.getOrderId();
     return send(new BeginCancelCommand(data.getOrderId()))
             .to(OrderServiceChannels.COMMAND_CHANNEL)
             .build();
