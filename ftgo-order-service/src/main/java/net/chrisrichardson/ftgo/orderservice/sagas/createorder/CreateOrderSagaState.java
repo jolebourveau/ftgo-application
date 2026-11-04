@@ -20,6 +20,8 @@ public class CreateOrderSagaState {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
+  private static final java.util.Map<Long, Integer> ticketReplyCounts = new java.util.HashMap<>();
+
   private Long orderId;
 
   private OrderDetails orderDetails;
@@ -83,6 +85,8 @@ public class CreateOrderSagaState {
   void handleCreateTicketReply(CreateTicketReply reply) {
     logger.debug("getTicketId {}", reply.getTicketId());
     setTicketId(reply.getTicketId());
+    Integer current = ticketReplyCounts.get(orderId);
+    ticketReplyCounts.put(orderId, (current == null ? 0 : current) + 1);
   }
 
   CancelCreateTicket makeCancelCreateTicketCommand() {
