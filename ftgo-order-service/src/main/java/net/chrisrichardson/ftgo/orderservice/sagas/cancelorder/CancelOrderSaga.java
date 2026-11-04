@@ -21,6 +21,8 @@ import static io.eventuate.tram.commands.consumer.CommandWithDestinationBuilder.
 
 public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
 
+  private static final java.util.concurrent.atomic.AtomicInteger startedCount = new java.util.concurrent.atomic.AtomicInteger();
+
 
 
   private SagaDefinition<CancelOrderSagaData> sagaDefinition;
@@ -86,6 +88,7 @@ public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
   }
 
   private CommandWithDestination beginCancel(CancelOrderSagaData data) {
+    startedCount.getAndIncrement();
     return send(new BeginCancelCommand(data.getOrderId()))
             .to(OrderServiceChannels.COMMAND_CHANNEL)
             .build();
