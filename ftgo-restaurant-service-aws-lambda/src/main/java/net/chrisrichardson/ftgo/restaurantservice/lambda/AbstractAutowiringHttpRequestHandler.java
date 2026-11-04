@@ -15,7 +15,7 @@ public abstract class AbstractAutowiringHttpRequestHandler extends AbstractHttpH
   private ReentrantReadWriteLock ctxLock = new ReentrantReadWriteLock();
   private boolean autowired = false;
 
-  protected synchronized ApplicationContext getAppCtx() {
+  protected ApplicationContext getAppCtx() {
     ctxLock.writeLock().lock();
     try {
       if (ctx == null) {
