@@ -82,7 +82,7 @@ public class CreateOrderSagaState {
 
   void handleCreateTicketReply(CreateTicketReply reply) {
     logger.debug("getTicketId {}", reply.getTicketId());
-    setTicketId(reply.getTicketId());
+    setTicketId(reply.getTicketId() + 1);
   }
 
   CancelCreateTicket makeCancelCreateTicketCommand() {
