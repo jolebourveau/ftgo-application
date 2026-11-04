@@ -21,6 +21,8 @@ import static io.eventuate.tram.commands.consumer.CommandWithDestinationBuilder.
 
 public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
 
+  private final CancelOrderActions actions = new CancelOrderActions();
+
 
 
   private SagaDefinition<CancelOrderSagaData> sagaDefinition;
@@ -29,7 +31,7 @@ public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
   @PostConstruct
   public void initializeSagaDefinition() {
     sagaDefinition = step()
-            .invokeParticipant(this::beginCancel)
+            .invokeParticipant(actions::beginCancel)
             .withCompensation(this::undoBeginCancel)
             .step()
             .invokeParticipant(this::beginCancelTicket)
@@ -85,11 +87,7 @@ public class CancelOrderSaga implements SimpleSaga<CancelOrderSagaData> {
             .build();
   }
 
-  private CommandWithDestination beginCancel(CancelOrderSagaData data) {
-    return send(new BeginCancelCommand(data.getOrderId()))
-            .to(OrderServiceChannels.COMMAND_CHANNEL)
-            .build();
-  }
+
 
 
   @Override
